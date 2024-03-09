@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import '../css/SignIn.css';
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
+import {ACCESS_TOKEN} from "../constants";
 
 function Header(props){
 
@@ -32,7 +33,7 @@ function Header(props){
                                     마이페이지
                                 </Button>
                                 <SignInModal show={modalShowSignIn} onHide={() => setModalShowSignIn(false)} />
-                                <Button variant="success" onClick={() => setModalShowSingUp(true)}>
+                                <Button variant="success" onClick={() => props.onLogout()}>
                                     로그아웃
                                 </Button>
                                 <SignUpModal show={modalShowSingUp} onHide={() => setModalShowSingUp(false)} />
@@ -43,11 +44,17 @@ function Header(props){
                                 <Button variant="outline-dark" onClick={() => setModalShowSignIn(true)} style={{ marginRight: '10px' }}>
                                     로그인
                                 </Button>
-                                <SignInModal show={modalShowSignIn} onHide={() => setModalShowSignIn(false)} />
+                                <SignInModal
+                                    show={modalShowSignIn}
+                                    onHide={() => setModalShowSignIn(false)}
+                                />
                                 <Button variant="success" onClick={() => setModalShowSingUp(true)}>
                                     회원가입
                                 </Button>
-                                <SignUpModal show={modalShowSingUp} onHide={() => setModalShowSingUp(false)} />
+                                <SignUpModal
+                                    show={modalShowSingUp}
+                                    onHide={() => setModalShowSingUp(false)}
+                                />
                             </>
                         )}
                     </Navbar.Collapse>

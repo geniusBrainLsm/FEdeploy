@@ -37,9 +37,9 @@ function App() {
 
     return (
         <Router>
-            <Header authenticated={authenticated} onLogout={handleLogout}/>
+            <Header authenticated={authenticated} setAuthenticated={setAuthenticated} onLogout={handleLogout}/>
             <Routes>
-                <Route path="/signIn" element={<SignInModal />} />
+                <Route path="/signIn" element={<SignInModal authenticated={authenticated} setAuthenticated={setAuthenticated}/>} />
                 <Route path="/signUp" element={<SignUpModal />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
             </Routes>

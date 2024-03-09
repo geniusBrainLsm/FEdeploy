@@ -38,7 +38,6 @@ function SignInModal(props) {
             .then(result => {
                 const response = signIn(formData);
 
-
                 // 서버에서 받은 토큰
                 //const token = response.data.token;
                 const token = result.accessToken;
@@ -47,6 +46,7 @@ function SignInModal(props) {
                 localStorage.setItem('accessToken', token);
                 navigate('/'); // 로그인 성공시 메인화면으로 이동
                 props.onHide();
+
             })
             .catch((error) => {
                 alert('SignIn Failed!');
@@ -93,7 +93,7 @@ function SignInModal(props) {
                         <div className={"form-find-div"}>
                             <a href="/" className={"form-find"}>아이디 찾기</a>
                             <a href="/" className={"form-find"}>비밀번호 찾기</a>
-                            <a href="/#" className={"form-find"}>회원가입</a>
+                            <a href="#" className={"form-find"}>회원가입</a>
                         </div>
                     </form>
                     <div className={"hr-sect"}>
@@ -101,13 +101,13 @@ function SignInModal(props) {
                     </div>
                     <div>
                         <a href={NAVER_AUTH_URL}>
-                            <img className={"from-signup-btn"} src={naverBtn}/>
+                            <img className={"from-signup-btn"} src={naverBtn} alt="네이버 로그인"/>
                         </a>
                         <a href={KAKAO_AUTH_URL}>
-                            <img className={"from-signup-btn"} src={kakaoBtn}/>
+                            <img className={"from-signup-btn"} src={kakaoBtn} alt="카카오 로그인"/>
                         </a>
                         <a href={GOOGLE_AUTH_URL}>
-                            <img className={"from-signup-btn"} src={googleBtn}/>
+                            <img className={"from-signup-btn"} src={googleBtn} alt="구글 로그인"/>
                         </a>
                     </div>
                 </div>
