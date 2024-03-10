@@ -32,6 +32,7 @@ function SignInModal(props) {
         const formData = {
             email: email,
             password: password,
+
         };
 
         signIn(formData)
@@ -46,10 +47,10 @@ function SignInModal(props) {
                 localStorage.setItem('accessToken', token);
                 navigate('/'); // 로그인 성공시 메인화면으로 이동
                 props.onHide();
-
+                props.onLogin();
             })
             .catch((error) => {
-                alert('SignIn Failed!');
+                alert('로그인 실패');
                 console.log(error);
             });
 
