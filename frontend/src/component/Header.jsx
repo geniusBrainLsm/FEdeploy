@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Button from 'react-bootstrap/Button';
-import '../css/SignIn.css';
+import '../css/Menu.css';
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";
-import {ACCESS_TOKEN} from "../constants";
+import dropdown from "bootstrap/js/src/dropdown";
 
 function Header(props){
 
@@ -21,7 +22,11 @@ function Header(props){
                     <Nav className="me-auto h5 font-weight-bold">
                         <Nav.Link href="#1">설명서</Nav.Link>
                         <Nav.Link href="#2">강좌</Nav.Link>
-                        <Nav.Link href="#3">실시간 매칭</Nav.Link>
+                        <NavDropdown title="실시간 매칭" id="collapsible-nav-dropdown" className="dropdown-toggle">
+                            <NavDropdown.Item href="#action/3.1">질문방 참가</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">질문방 개설</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">이전 질문방 조회</NavDropdown.Item>
+                        </NavDropdown>
                         <Nav.Link href="#4">AI 선생님</Nav.Link>
                         <Nav.Link href="#5">커뮤니티</Nav.Link>
                     </Nav>

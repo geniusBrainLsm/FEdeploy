@@ -4,6 +4,7 @@ import Header from "./component/Header";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignInModal from "./component/SignInModal";
 import SignUpModal from "./component/SignUpModal";
+import MainContents from "./component/MainContents"
 import OAuth2RedirectHandler from './oauth2/OAuth2RedirectHandler';
 import { ACCESS_TOKEN } from './constants/index';
 import {getCurrentUser} from "./util/APIUtils";
@@ -39,6 +40,7 @@ function App() {
         <Router>
             <Header authenticated={authenticated} setAuthenticated={setAuthenticated} onLogout={handleLogout}/>
             <Routes>
+                <Route path="/" element={<MainContents/>}/>
                 <Route path="/signIn" element={<SignInModal authenticated={authenticated} setAuthenticated={setAuthenticated} onLogin={loadCurrentlyLoggedInUser}/>} />
                 <Route path="/signUp" element={<SignUpModal />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
