@@ -8,6 +8,8 @@ import MainContents from "./component/MainContents"
 import OAuth2RedirectHandler from './oauth2/OAuth2RedirectHandler';
 import { ACCESS_TOKEN } from './constants/index';
 import {getCurrentUser} from "./util/APIUtils";
+import QuestionRoomCreate from "./component/QuestionRoomCreate";
+import Footer from "./component/Footer";
 
 function App() {
 
@@ -44,7 +46,9 @@ function App() {
                 <Route path="/signIn" element={<SignInModal authenticated={authenticated} setAuthenticated={setAuthenticated} onLogin={loadCurrentlyLoggedInUser}/>} />
                 <Route path="/signUp" element={<SignUpModal />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+                <Route path="/QuestionRoomCreate" element={<QuestionRoomCreate />} />
             </Routes>
+            <Footer/>
         </Router>
     );
 }
