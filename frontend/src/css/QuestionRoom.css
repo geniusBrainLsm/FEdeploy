@@ -1,0 +1,92 @@
+.question-room-container {
+    display: flex;
+}
+
+.room-partition-div{
+    border: 1px solid;
+    margin: 10px;
+    font-size: 15px;
+    width: 350px;
+    height: 900px;
+}
+
+.room-partition-div2{
+    border: 1px solid;
+    display: flex;
+    margin: auto;
+    font-size: 15px;
+    width: 1800px;
+    height: 900px;
+}
+
+.progress-time-div{
+    /*border: 1px solid black;*/
+    /*width: 100px;*/
+    /*display: flex;*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    /*text-align: center;*/
+    color: black;
+}
+
+.charge-div{
+    /*border: 1px solid black;*/
+    /*width: 100px;*/
+    /*display: flex;*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    /*text-align: center;*/
+    color: black;
+}
+
+.participant-list-div{
+    border: 1px solid black;
+    /*height: 400px;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    color: black;
+}
+
+.participant-div{
+    border: 1px solid black;
+    /*height: 400px;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    color: black;
+}
+
+.chat-div{
+    border: 1px solid black;
+    /*height: 400px;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    color: black;
+}
+
+.draw-div{
+    border: 1px solid black;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    color: black;
+}

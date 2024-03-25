@@ -27,7 +27,11 @@ function Header(props){
                             <NavDropdown.Item href="#action/3.3">이전 질문방 조회</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link href="#4">AI 선생님</Nav.Link>
-                        <Nav.Link href="#5">커뮤니티</Nav.Link>
+                        <NavDropdown title="커뮤니티" id="collapsible-nav-dropdown" className="dropdown-toggle">
+                            <NavDropdown.Item href="/Qna">질문/답변</NavDropdown.Item>
+                            <NavDropdown.Item href="/QuestionRoomCreate">수강평</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">개선요구</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
                         {props.authenticated ? (

@@ -9,7 +9,9 @@ import OAuth2RedirectHandler from './oauth2/OAuth2RedirectHandler';
 import { ACCESS_TOKEN } from './constants/index';
 import {getCurrentUser} from "./util/APIUtils";
 import QuestionRoomCreate from "./component/QuestionRoomCreate";
+import QuestionRoom from "./component/QuestionRoom";
 import Footer from "./component/Footer";
+import Qna from "./component/Qna";
 
 function App() {
 
@@ -47,6 +49,8 @@ function App() {
                 <Route path="/signUp" element={<SignUpModal />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
                 <Route path="/QuestionRoomCreate" element={<QuestionRoomCreate />} />
+                <Route path="/QuestionRoom" element={<QuestionRoom />} />
+                <Route path="/Qna" element={<Qna />} />
             </Routes>
             <Footer/>
         </Router>
