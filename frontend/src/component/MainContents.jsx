@@ -6,7 +6,7 @@ import testLogo from "../img/size_s_icon_137187.png";
 function MainContents(){
 
     return (
-        <div>
+        <div className="main-wrapper">
             <div>
                 <Carousel data-bs-theme="dark" className="test1">
                     <Carousel.Item interval={2000}>

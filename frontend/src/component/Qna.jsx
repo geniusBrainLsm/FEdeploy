@@ -1,15 +1,24 @@
 import Accordion from "react-bootstrap/Accordion";
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import '../css/Qna.css';
 import Pagination from 'react-bootstrap/Pagination';
 
 function Qna(){
+
+    const navigate = useNavigate();
 
     const [activeSort, setActiveSort] = useState(""); // 현재 활성화된 정렬 버튼의 상태를 관리
 
     const handleSortClick = (sortType) => {
         setActiveSort(sortType); // 클릭한 버튼의 종류를 상태로 설정
     };
+
+    const navigateToDetail = () => {
+        navigate("/QnaDetail");
+    };
+
+    // const handelTrans
 
     return(
         <div>
@@ -38,12 +47,11 @@ function Qna(){
                         <span>커뮤니티 / 질문 / 답변</span>
                     </div>
                     <div className="qna-posts">
-                        {/* 정렬 버튼들 */}
                         <button className={`sorts-btn ${activeSort === "최신순" ? "active" : ""}`} onClick={() => handleSortClick("최신순")}>최신순</button>
                         <button className={`sorts-btn ${activeSort === "정확도순" ? "active" : ""}`} onClick={() => handleSortClick("정확도순")}>정확도순</button>
                         <button className={`sorts-btn ${activeSort === "조회수순" ? "active" : ""}`} onClick={() => handleSortClick("조회수순")}>조회수순</button>
                         <button className={`sorts-btn ${activeSort === "좋아요순" ? "active" : ""}`} onClick={() => handleSortClick("좋아요순")}>좋아요순</button>
-                        <button className="write-btn">글쓰기</button>
+                        <button className={"write-btn"} onClick={navigateToDetail}>글쓰기</button>
                     </div>
                     <div className="qna">
                             <a href="#" className="qna-a">
@@ -79,6 +87,146 @@ function Qna(){
                                     </div>
                                 </div>
                             </a>
+                    </div>
+                    <div className="qna">
+                        <a href="#" className="qna-a">
+                            <div className="qna-info">
+                                <div>
+                                    <h4>게시글 제목</h4>
+                                </div>
+                                <div>
+                                    <p>게시글 내용</p>
+                                </div>
+                                <div className="qna-tag">
+                                    <span>태그</span>
+                                </div>
+                                <div className="qna-info-detail">
+                                    <div>
+                                        <span>qwer123</span>
+                                        <span>&nbsp;</span>
+                                        <span>2024-01-02</span>
+                                    </div>
+                                    <div className="qna-info-user-data">
+                                        <span>하트</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>조회수</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>답글</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="qna">
+                        <a href="#" className="qna-a">
+                            <div className="qna-info">
+                                <div>
+                                    <h4>게시글 제목</h4>
+                                </div>
+                                <div>
+                                    <p>게시글 내용</p>
+                                </div>
+                                <div className="qna-tag">
+                                    <span>태그</span>
+                                </div>
+                                <div className="qna-info-detail">
+                                    <div>
+                                        <span>qwer123</span>
+                                        <span>&nbsp;</span>
+                                        <span>2024-01-02</span>
+                                    </div>
+                                    <div className="qna-info-user-data">
+                                        <span>하트</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>조회수</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>답글</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="qna">
+                        <a href="#" className="qna-a">
+                            <div className="qna-info">
+                                <div>
+                                    <h4>게시글 제목</h4>
+                                </div>
+                                <div>
+                                    <p>게시글 내용</p>
+                                </div>
+                                <div className="qna-tag">
+                                    <span>태그</span>
+                                </div>
+                                <div className="qna-info-detail">
+                                    <div>
+                                        <span>qwer123</span>
+                                        <span>&nbsp;</span>
+                                        <span>2024-01-02</span>
+                                    </div>
+                                    <div className="qna-info-user-data">
+                                        <span>하트</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>조회수</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>답글</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div className="qna">
+                        <a href="#" className="qna-a">
+                            <div className="qna-info">
+                                <div>
+                                    <h4>게시글 제목</h4>
+                                </div>
+                                <div>
+                                    <p>게시글 내용</p>
+                                </div>
+                                <div className="qna-tag">
+                                    <span>태그</span>
+                                </div>
+                                <div className="qna-info-detail">
+                                    <div>
+                                        <span>qwer123</span>
+                                        <span>&nbsp;</span>
+                                        <span>2024-01-02</span>
+                                    </div>
+                                    <div className="qna-info-user-data">
+                                        <span>하트</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>조회수</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                        <span>&nbsp;</span>
+                                        <span>답글</span>
+                                        <span>&nbsp;</span>
+                                        <span>1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                     <div>
                         {/*<Pagination>*/}

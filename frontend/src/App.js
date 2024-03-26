@@ -12,6 +12,7 @@ import QuestionRoomCreate from "./component/QuestionRoomCreate";
 import QuestionRoom from "./component/QuestionRoom";
 import Footer from "./component/Footer";
 import Qna from "./component/Qna";
+import QnaDetail from "./component/QnaDetail";
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
                 <Route path="/QuestionRoomCreate" element={<QuestionRoomCreate />} />
                 <Route path="/QuestionRoom" element={<QuestionRoom />} />
                 <Route path="/Qna" element={<Qna />} />
+                <Route path="/QnaDetail" element={<QnaDetail />}/>
             </Routes>
             <Footer/>
         </Router>
