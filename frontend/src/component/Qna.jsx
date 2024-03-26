@@ -1,9 +1,16 @@
 import Accordion from "react-bootstrap/Accordion";
-import React from "react";
+import React, {useState} from "react";
 import '../css/Qna.css';
 import Pagination from 'react-bootstrap/Pagination';
 
 function Qna(){
+
+    const [activeSort, setActiveSort] = useState(""); // 현재 활성화된 정렬 버튼의 상태를 관리
+
+    const handleSortClick = (sortType) => {
+        setActiveSort(sortType); // 클릭한 버튼의 종류를 상태로 설정
+    };
+
     return(
         <div>
             <div className="qrc-image-div2">
@@ -29,6 +36,14 @@ function Qna(){
                 <div className="qna-container2">
                     <div className="qna-guide">
                         <span>커뮤니티 / 질문 / 답변</span>
+                    </div>
+                    <div className="qna-posts">
+                        {/* 정렬 버튼들 */}
+                        <button className={`sorts-btn ${activeSort === "최신순" ? "active" : ""}`} onClick={() => handleSortClick("최신순")}>최신순</button>
+                        <button className={`sorts-btn ${activeSort === "정확도순" ? "active" : ""}`} onClick={() => handleSortClick("정확도순")}>정확도순</button>
+                        <button className={`sorts-btn ${activeSort === "조회수순" ? "active" : ""}`} onClick={() => handleSortClick("조회수순")}>조회수순</button>
+                        <button className={`sorts-btn ${activeSort === "좋아요순" ? "active" : ""}`} onClick={() => handleSortClick("좋아요순")}>좋아요순</button>
+                        <button className="write-btn">글쓰기</button>
                     </div>
                     <div className="qna">
                             <a href="#" className="qna-a">

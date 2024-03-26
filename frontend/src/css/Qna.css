@@ -142,3 +142,39 @@
 .qna-a:hover > .qna-info {
     background-color: #fafafa; /* 마우스 호버 시 div의 배경색을 회색으로 설정 */
 }
+
+.qna-posts{
+    display: flex;
+    margin: 10px;
+}
+
+.sorts-btn{
+    font-size: 16px;
+    background-color: white; /* 버튼 배경색 */
+    color: #495057; /* 버튼 텍스트 색상 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sorts-btn:hover {
+    font-weight: bold; /* 활성화된 버튼의 글씨를 진하게 표시 */
+    color: #6b6b6b; /* 마우스 오버시 글자색 */
+}
+
+.sorts-btn.active {
+    font-weight: bold; /* 활성화된 버튼의 글씨를 진하게 표시 */
+    color: #282828; /* 활성화된 버튼의 글씨 색상 변경 */
+}
+
+.write-btn{
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: black; /* 버튼 배경색 */
+    color: #fff; /* 버튼 텍스트 색상 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+
+}
