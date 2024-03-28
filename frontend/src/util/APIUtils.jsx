@@ -1,5 +1,5 @@
 import { API_BASE_URL, ACCESS_TOKEN } from '../constants/index';
-
+import '../css/Main.css';
 const request = (options) => {
     const headers = new Headers({
         'Content-Type': 'application/json',
@@ -53,4 +53,12 @@ export function signUp(signupRequest) {
         method: 'POST',
         body: JSON.stringify(signupRequest)
     });
+}
+
+export function createQna(createQnaRequest){
+    return request({
+        url: API_BASE_URL + "/api/board",
+        method: 'POST',
+        body: JSON.stringify(createQnaRequest)
+    })
 }

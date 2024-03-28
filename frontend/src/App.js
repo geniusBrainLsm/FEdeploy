@@ -13,6 +13,7 @@ import QuestionRoom from "./component/QuestionRoom";
 import Footer from "./component/Footer";
 import Qna from "./component/Qna";
 import QnaDetail from "./component/QnaDetail";
+import Test from "./component/test";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
         <Router>
             <Header authenticated={authenticated} setAuthenticated={setAuthenticated} onLogout={handleLogout}/>
             <Routes>
+                <Route path="/test" element={<Test/>} />
                 <Route path="/" element={<MainContents/>}/>
                 <Route path="/signIn" element={<SignInModal authenticated={authenticated} setAuthenticated={setAuthenticated} onLogin={loadCurrentlyLoggedInUser}/>} />
                 <Route path="/signUp" element={<SignUpModal />} />
