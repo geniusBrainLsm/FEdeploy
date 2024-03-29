@@ -7,9 +7,30 @@ function QnaDetail(props){
 
     const [textTitle, setTextTitle] = useState('');
     const [textContent, setTextContent] = useState('');
-
+    const [hashTag, setHashTag] = useState('');
+    const [inputHashTags, setInputHashTags] = useState([]);
     const navigate = useNavigate();
     const textareaRef = useRef(null); // textarea의 높이를 자동으로 조절하는 함수
+
+    const handleOnChange = (e) => {
+        const { value } = e.target;
+        setHashTag(value);
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && hashTag.trim() !== '') {
+            setInputHashTags(prevHashTags => [...prevHashTags, hashTag.trim()]);
+            setHashTag('');
+            e.preventDefault(); // Input에서 엔터키 누를 시 Form 요청으로 넘어가는걸 방지
+        } else if (e.key === 'Backspace' && hashTag === '') {
+            setInputHashTags(prevHashTags => prevHashTags.slice(0, -1));
+        }
+    }
+
+    const handleDeleteTag = (index) => {
+        setInputHashTags(prevHashTags => prevHashTags.filter((_, i) => i !== index));
+    }
+
     const adjustTextareaHeight = (e) => {
         const textarea = textareaRef.current;
         setTextTitle(e.target.value);
@@ -26,8 +47,12 @@ function QnaDetail(props){
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        //
         const formData = {
             title: textTitle,
+            // tag: tag,
+            // writer: writer,
+            // boardType: boardType,
             content: textContent
         };
 
@@ -56,15 +81,33 @@ function QnaDetail(props){
                     />
                     </div>
                     <div>
-                        <input
-                            className="qna-hash-tag"
-                            placeholder={"태그설정"}
-                        />
-                        <ul>
-                            {/*{hashArr.map((item, index) => (*/}
-                            {/*    <li key={index}>{item}</li>*/}
-                            {/*))}*/}
-                        </ul>
+                        <div className="hash-div1">
+                            <ul className="hash-ul">
+                                {inputHashTags.map((tag, index) => (
+                                    <li className="hash-li" key={index}>
+                                        <span className="hash-span">{tag}</span>
+                                        <button className="hash-delete-btn" onClick={() => handleDeleteTag(index)}>
+                                            <svg
+                                                width="8"
+                                                height="8"
+                                                viewBox="0 0 100 100"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                style={{ cursor: 'pointer' }} // 마우스가 올라가면 커서를 포인터로 변경합니다.
+                                            >
+                                                <line x1="10" y1="10" x2="90" y2="90" stroke="black" strokeWidth="20" />
+                                                <line x1="90" y1="10" x2="10" y2="90" stroke="black" strokeWidth="20" />
+                                            </svg>
+                                        </button>
+                                    </li>
+                                ))}
+                                <input
+                                    value={hashTag}
+                                    onChange={handleOnChange}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder="태그를 설정하세요"
+                                />
+                            </ul>
+                        </div>
                     </div>
                     <div>
                         <ReactQuill

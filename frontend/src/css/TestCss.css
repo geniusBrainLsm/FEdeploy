@@ -17,11 +17,30 @@
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    margin: 0px 10px 10px 0px;
+    margin: 0px 10px 0px 0px;
     padding: 3px 13.333px;
     background: rgb(248, 249, 250);
     border-radius: 4px;
     font-weight: 700;
     font-size: 13px;
     color: rgb(134, 142, 150);
+}
+
+.hash-delete-btn{
+    margin: 0px;
+    padding: 0px;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+}
+
+.hash-span{
+    margin-right: 5px;
 }
