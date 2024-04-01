@@ -9,12 +9,12 @@ function QnaDetail(props){
     const [textContent, setTextContent] = useState('');
     const [hashTag, setHashTag] = useState('');
     const [inputHashTags, setInputHashTags] = useState([]);
-    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedValue, setSelectedValue] = useState('1');
 
     const selectList = [
         { value: "1", name: "질문/답변" },
         { value: "2", name: "수강평" },
-        { value: "3", name: "개선요구" },
+        { value: "3", name: "개선요구" }
     ];
 
     const navigate = useNavigate();
@@ -139,11 +139,12 @@ function QnaDetail(props){
                         </div>
                     </div>
                     <div>
-                        <select value={selectedValue} onChange={handleSelectChange}>
+                        <select value={selectedValue} defaultValue={selectedValue} onChange={handleSelectChange}>
                             {selectList.map(item => (
                                 <option key={item.value} value={item.value}>{item.name}</option>
                             ))}
                         </select>
+                        <p>선택된 값: {selectedValue}</p>
                     </div>
                     <div>
                         <ReactQuill
