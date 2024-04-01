@@ -27,6 +27,7 @@ function QnaDetail(props){
 
     const handleContentChange = (text) => {
         setTextContent(text);
+
     }
 
     const handleSelectChange = (e) => {
@@ -75,7 +76,9 @@ function QnaDetail(props){
                     tag: hashTag,
                     writer: currentUser.name,
                     boardType: selectedValue,
-                    content: textContent
+                    contents: textContent,
+                    likeCount: 0,
+                    viewCounter: 0
                 };
 
                 createQna(formData)
@@ -139,12 +142,11 @@ function QnaDetail(props){
                         </div>
                     </div>
                     <div>
-                        <select value={selectedValue} defaultValue={selectedValue} onChange={handleSelectChange}>
+                        <select value={selectedValue} onChange={handleSelectChange}>
                             {selectList.map(item => (
                                 <option key={item.value} value={item.value}>{item.name}</option>
                             ))}
                         </select>
-                        <p>선택된 값: {selectedValue}</p>
                     </div>
                     <div>
                         <ReactQuill
