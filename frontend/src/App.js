@@ -51,10 +51,10 @@ function App() {
                 <Route path="/signIn" element={<SignInModal authenticated={authenticated} setAuthenticated={setAuthenticated} onLogin={loadCurrentlyLoggedInUser}/>} />
                 <Route path="/signUp" element={<SignUpModal />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
-                <Route path="/QuestionRoomCreate" element={<QuestionRoomCreate />} />
-                <Route path="/QuestionRoom" element={<QuestionRoom />} />
-                <Route path="/Qna" element={<Qna />} />
-                <Route path="/QnaDetail" element={<QnaDetail />}/>
+                <Route path="/questionRoomCreate" element={<QuestionRoomCreate />} />
+                <Route path="/questionRoom" element={<QuestionRoom />} />
+                <Route path="/qna" element={<Qna />} />
+                <Route path="/qnaDetail" element={<QnaDetail />}/>
             </Routes>
             <Footer/>
         </Router>

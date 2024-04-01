@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../css/Qna.css';
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -8,7 +8,7 @@ function QnaDetail(props){
     const [textTitle, setTextTitle] = useState('');
     const [textContent, setTextContent] = useState('');
     const [hashTag, setHashTag] = useState('');
-    const [inputHashTags, setInputHashTags] = useState([]);
+    const [inputHashTag, setInputHashTag] = useState([]);
     const [selectedValue, setSelectedValue] = useState('1');
 
     const selectList = [
@@ -36,19 +36,22 @@ function QnaDetail(props){
         console.log(value); // 이곳에서 값이 출력됩니다.
     }
 
+    useEffect(() => {
+        console.log('inputHashTags:', inputHashTag);
+    }, [inputHashTag]);
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && hashTag.trim() !== '') {
-            setInputHashTags(prevHashTags => [...prevHashTags, hashTag.trim()]);
+            setInputHashTag(prevHashTags => [...prevHashTags, hashTag.trim()]);
             setHashTag('');
             e.preventDefault(); // Input에서 엔터키 누를 시 Form 요청으로 넘어가는걸 방지
-            console.log(typeof inputHashTags[0]);
         } else if (e.key === 'Backspace' && hashTag === '') {
-            setInputHashTags(prevHashTags => prevHashTags.slice(0, -1));
+            setInputHashTag(prevHashTags => prevHashTags.slice(0, -1));
         }
     }
 
     const handleDeleteTag = (index) => {
-        setInputHashTags(prevHashTags => prevHashTags.filter((_, i) => i !== index));
+        setInputHashTag(prevHashTags => prevHashTags.filter((_, i) => i !== index));
     }
 
     const adjustTextareaHeight = (e) => {
@@ -67,13 +70,20 @@ function QnaDetail(props){
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        // 모든 배열 요소를 문자열 객체로 변환하여 문자열로 합침
+        // inputHashTags 배열을 객체로 변환하여 key-value 형태로 추가
+        const tagObject = inputHashTags.reduce((obj, tag, index) => {
+            obj[`tag${index + 1}`] = tag;
+            return obj;
+        }, {});
+
         // 현재 사용자 정보를 가져오는 비동기 함수
         CurrentUser()
             .then(currentUser => {
                 // 현재 사용자 정보를 받은 후에 formData 객체 생성 및 createQna 호출
                 const formData = {
                     title: textTitle,
-                    tag: hashTag,
+                    tag: JSON.stringify(tagObject),
                     writer: currentUser.name,
                     boardType: selectedValue,
                     contents: textContent,
@@ -114,7 +124,7 @@ function QnaDetail(props){
                     <div>
                         <div className="hash-div1">
                             <ul className="hash-ul">
-                                {inputHashTags.map((tag, index) => (
+                                {inputHashTag.map((tag, index) => (
                                     <li className="hash-li" key={index}>
                                         <span className="hash-span">{tag}</span>
                                         <button className="hash-delete-btn" onClick={() => handleDeleteTag(index)}>
