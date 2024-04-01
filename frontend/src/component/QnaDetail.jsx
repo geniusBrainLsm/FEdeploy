@@ -11,6 +11,12 @@ function QnaDetail(props){
     const [inputHashTags, setInputHashTags] = useState([]);
     const [selectedValue, setSelectedValue] = useState('');
 
+    const selectList = [
+        { value: "1", name: "질문/답변" },
+        { value: "2", name: "수강평" },
+        { value: "3", name: "개선요구" },
+    ];
+
     const navigate = useNavigate();
     const textareaRef = useRef(null); // textarea의 높이를 자동으로 조절하는 함수
 
@@ -26,6 +32,7 @@ function QnaDetail(props){
     const handleSelectChange = (e) => {
         const { value } = e.target;
         setSelectedValue(value);
+        console.log(value); // 이곳에서 값이 출력됩니다.
     }
 
     const handleKeyDown = (e) => {
@@ -33,6 +40,7 @@ function QnaDetail(props){
             setInputHashTags(prevHashTags => [...prevHashTags, hashTag.trim()]);
             setHashTag('');
             e.preventDefault(); // Input에서 엔터키 누를 시 Form 요청으로 넘어가는걸 방지
+            console.log(typeof inputHashTags[0]);
         } else if (e.key === 'Backspace' && hashTag === '') {
             setInputHashTags(prevHashTags => prevHashTags.slice(0, -1));
         }
@@ -65,14 +73,14 @@ function QnaDetail(props){
                 const formData = {
                     title: textTitle,
                     tag: hashTag,
-                    writer: currentUser,
+                    writer: currentUser.name,
                     boardType: selectedValue,
                     content: textContent
                 };
 
                 createQna(formData)
                     .then(() => {
-                        navigate('/Qna'); // 회원가입 성공 시 /Qna url로 이동
+                        navigate('/Qna'); // 게시글 작성 성공 시 /Qna url로 이동
                         props.onHide();
                     })
                     .catch((error) => {
@@ -121,6 +129,7 @@ function QnaDetail(props){
                                     </li>
                                 ))}
                                 <input
+                                    type="text"
                                     value={hashTag}
                                     onChange={handleOnHashTagChange}
                                     onKeyDown={handleKeyDown}
@@ -131,9 +140,9 @@ function QnaDetail(props){
                     </div>
                     <div>
                         <select value={selectedValue} onChange={handleSelectChange}>
-                            <option value="question">질문/답변</option>
-                            <option value="review">수강평</option>
-                            <option value="suggestion">개선요구</option>
+                            {selectList.map(item => (
+                                <option key={item.value} value={item.value}>{item.name}</option>
+                            ))}
                         </select>
                     </div>
                     <div>
@@ -144,6 +153,8 @@ function QnaDetail(props){
                             onChange={handleContentChange}
                             placeholder="-학습 관련 질문을 남겨주세요."
                         />
+                    </div>
+                    <div>
                     </div>
                     <div className="qna-detail-btn">
                         <button className="cancel-btn" onClick={navigateToQna}>취소</button>
