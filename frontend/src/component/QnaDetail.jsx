@@ -33,12 +33,7 @@ function QnaDetail(props){
     const handleSelectChange = (e) => {
         const { value } = e.target;
         setSelectedValue(value);
-        console.log(value); // 이곳에서 값이 출력됩니다.
     }
-
-    useEffect(() => {
-        console.log('inputHashTags:', inputHashTag);
-    }, [inputHashTag]);
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && hashTag.trim() !== '') {
@@ -72,7 +67,7 @@ function QnaDetail(props){
 
         // 모든 배열 요소를 문자열 객체로 변환하여 문자열로 합침
         // inputHashTags 배열을 객체로 변환하여 key-value 형태로 추가
-        const tagObject = inputHashTags.reduce((obj, tag, index) => {
+        const tagObject = inputHashTag.reduce((obj, tag, index) => {
             obj[`tag${index + 1}`] = tag;
             return obj;
         }, {});
