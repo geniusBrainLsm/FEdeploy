@@ -66,7 +66,7 @@ export function createQna(createQnaRequest){
 export function CurrentUser(CurrentUserRequest){
     return request({
         url: API_BASE_URL + "/user/me",
-        method: 'POST',
+        method: 'GET',
         body: JSON.stringify(CurrentUserRequest)
     })
 }

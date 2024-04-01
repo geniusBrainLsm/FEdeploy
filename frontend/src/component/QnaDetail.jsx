@@ -10,7 +10,6 @@ function QnaDetail(props){
     const [hashTag, setHashTag] = useState('');
     const [inputHashTags, setInputHashTags] = useState([]);
     const [selectedValue, setSelectedValue] = useState('');
-    const [bringUser, setBringUser] = useState('');
 
     const navigate = useNavigate();
     const textareaRef = useRef(null); // textarea의 높이를 자동으로 조절하는 함수
@@ -132,9 +131,9 @@ function QnaDetail(props){
                     </div>
                     <div>
                         <select value={selectedValue} onChange={handleSelectChange}>
-                            <option value="1">질문/답변</option>
-                            <option value="2">수강평</option>
-                            <option value="3">개선요구</option>
+                            <option value="question">질문/답변</option>
+                            <option value="review">수강평</option>
+                            <option value="suggestion">개선요구</option>
                         </select>
                     </div>
                     <div>
