@@ -62,3 +62,11 @@ export function createQna(createQnaRequest){
         body: JSON.stringify(createQnaRequest)
     })
 }
+
+export function CurrentUser(CurrentUserRequest){
+    return request({
+        url: API_BASE_URL + "/user/me",
+        method: 'POST',
+        body: JSON.stringify(CurrentUserRequest)
+    })
+}

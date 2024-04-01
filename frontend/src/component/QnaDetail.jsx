@@ -2,19 +2,31 @@ import React, {useRef, useState} from 'react';
 import '../css/Qna.css';
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
-import {createQna} from "../util/APIUtils";
+import {createQna, CurrentUser} from "../util/APIUtils";
 function QnaDetail(props){
 
     const [textTitle, setTextTitle] = useState('');
     const [textContent, setTextContent] = useState('');
     const [hashTag, setHashTag] = useState('');
     const [inputHashTags, setInputHashTags] = useState([]);
+    const [selectedValue, setSelectedValue] = useState('');
+    const [bringUser, setBringUser] = useState('');
+
     const navigate = useNavigate();
     const textareaRef = useRef(null); // textarea의 높이를 자동으로 조절하는 함수
 
-    const handleOnChange = (e) => {
+    const handleOnHashTagChange = (e) => {
         const { value } = e.target;
         setHashTag(value);
+    }
+
+    const handleContentChange = (text) => {
+        setTextContent(text);
+    }
+
+    const handleSelectChange = (e) => {
+        const { value } = e.target;
+        setSelectedValue(value);
     }
 
     const handleKeyDown = (e) => {
@@ -47,22 +59,31 @@ function QnaDetail(props){
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //
-        const formData = {
-            title: textTitle,
-            // tag: tag,
-            // writer: writer,
-            // boardType: boardType,
-            content: textContent
-        };
+        // 현재 사용자 정보를 가져오는 비동기 함수
+        CurrentUser()
+            .then(currentUser => {
+                // 현재 사용자 정보를 받은 후에 formData 객체 생성 및 createQna 호출
+                const formData = {
+                    title: textTitle,
+                    tag: hashTag,
+                    writer: currentUser,
+                    boardType: selectedValue,
+                    content: textContent
+                };
 
-        createQna(formData)
-            .then(() => {
-                navigate('/Qna'); // 회원가입 성공 시 /Qna url로 이동
-                props.onHide();
+                createQna(formData)
+                    .then(() => {
+                        navigate('/Qna'); // 회원가입 성공 시 /Qna url로 이동
+                        props.onHide();
+                    })
+                    .catch((error) => {
+                        alert('게시글 작성 실패');
+                    });
             })
-            .catch((error) => {
-                alert('게시글 작성 실패');
+            .catch(error => {
+                console.error('현재 사용자 정보를 가져오는데 실패했습니다:', error);
+                // 사용자 정보를 가져오지 못한 경우에 대한 에러 처리
+                alert('현재 사용자 정보를 가져오는데 실패했습니다');
             });
     };
 
@@ -102,7 +123,7 @@ function QnaDetail(props){
                                 ))}
                                 <input
                                     value={hashTag}
-                                    onChange={handleOnChange}
+                                    onChange={handleOnHashTagChange}
                                     onKeyDown={handleKeyDown}
                                     placeholder="태그를 설정하세요"
                                 />
@@ -110,10 +131,18 @@ function QnaDetail(props){
                         </div>
                     </div>
                     <div>
+                        <select value={selectedValue} onChange={handleSelectChange}>
+                            <option value="1">질문/답변</option>
+                            <option value="2">수강평</option>
+                            <option value="3">개선요구</option>
+                        </select>
+                    </div>
+                    <div>
                         <ReactQuill
                             className="qna-detail-content"
                             theme="snow"
                             value={textContent}
+                            onChange={handleContentChange}
                             placeholder="-학습 관련 질문을 남겨주세요."
                         />
                     </div>
