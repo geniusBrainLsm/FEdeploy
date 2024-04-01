@@ -84,10 +84,10 @@ function QnaDetail(props){
                 createQna(formData)
                     .then(() => {
                         navigate('/Qna'); // 게시글 작성 성공 시 /Qna url로 이동
-                        props.onHide();
                     })
                     .catch((error) => {
                         alert('게시글 작성 실패');
+                        console.log(error);
                     });
             })
             .catch(error => {
