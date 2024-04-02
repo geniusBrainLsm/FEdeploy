@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from "./component/Header";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Test from "./component/test";
+import Header from "./component/Header";
 import SignInModal from "./component/SignInModal";
 import SignUpModal from "./component/SignUpModal";
 import MainContents from "./component/MainContents"
@@ -11,9 +12,11 @@ import {getCurrentUser} from "./util/APIUtils";
 import QuestionRoomCreate from "./component/QuestionRoomCreate";
 import QuestionRoom from "./component/QuestionRoom";
 import Footer from "./component/Footer";
-import Qna from "./component/Qna";
-import QnaDetail from "./component/QnaDetail";
-import Test from "./component/test";
+import QnaCreate from "./component/QnaCreate";
+import QnaList from "./component/QnaList";
+import QnaRead from "./component/QnaRead";
+import QnaDelete from "./component/QnaDelete";
+import QnaUpdate from "./component/QnaUpdate";
 
 function App() {
 
@@ -53,8 +56,11 @@ function App() {
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
                 <Route path="/questionRoomCreate" element={<QuestionRoomCreate />} />
                 <Route path="/questionRoom" element={<QuestionRoom />} />
-                <Route path="/qna" element={<Qna />} />
-                <Route path="/qnaDetail" element={<QnaDetail />}/>
+                <Route path="/qnaList" element={<QnaList />} />
+                <Route path="/qnaCreate" element={<QnaCreate />}/>
+                <Route path="/qnaRead" element={<QnaRead />}/>
+                <Route path="/qnaDelete" element={<QnaDelete />}/>
+                <Route path="/qnaUpdate" element={<QnaUpdate />}/>
             </Routes>
             <Footer/>
         </Router>

@@ -63,10 +63,16 @@ export function createQna(createQnaRequest){
     })
 }
 
-export function CurrentUser(CurrentUserRequest){
+export function readQna(){
+    return request({
+        url: API_BASE_URL + "/api/board",
+        method: 'GET',
+    })
+}
+
+export function currentUser(){
     return request({
         url: API_BASE_URL + "/user/me",
         method: 'GET',
-        body: JSON.stringify(CurrentUserRequest)
     })
 }

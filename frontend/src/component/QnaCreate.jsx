@@ -2,8 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import '../css/Qna.css';
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
-import {createQna, CurrentUser} from "../util/APIUtils";
-function QnaDetail(props){
+import {createQna, currentUser} from "../util/APIUtils";
+function QnaCreate(props){
 
     const [textTitle, setTextTitle] = useState('');
     const [textContent, setTextContent] = useState('');
@@ -59,7 +59,7 @@ function QnaDetail(props){
     };
 
     const navigateToQna = () => {
-        navigate("/Qna");
+        navigate("/QnaList");
     };
 
     const handleSubmit = (e) => {
@@ -72,8 +72,10 @@ function QnaDetail(props){
             return obj;
         }, {});
 
+        console.log('Tag Object:', tagObject);
+
         // 현재 사용자 정보를 가져오는 비동기 함수
-        CurrentUser()
+        currentUser()
             .then(currentUser => {
                 // 현재 사용자 정보를 받은 후에 formData 객체 생성 및 createQna 호출
                 const formData = {
@@ -83,7 +85,8 @@ function QnaDetail(props){
                     boardType: selectedValue,
                     contents: textContent,
                     likeCount: 0,
-                    viewCounter: 0
+                    viewCounter: 0,
+                    commentCounter: 0
                 };
 
                 createQna(formData)
@@ -174,4 +177,4 @@ function QnaDetail(props){
     )
 }
 
-export default QnaDetail;
+export default QnaCreate;
