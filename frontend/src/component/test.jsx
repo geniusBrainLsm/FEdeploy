@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import '../css/TestCss.css';
 
 function Test() {
     // const [hashTag, setHashTag] = useState('');
     // const [inputHashTags, setInputHashTags] = useState([]);
+    //
+    // useEffect(() => {
+    //     inputHashTags.forEach((tag, index) => {
+    //         console.log(`Index: ${index}, Tag: ${tag}`);
+    //     });
+    // }, [inputHashTags]);
     //
     // const handleOnChange = (e) => {
     //     const { value } = e.target;
@@ -19,7 +25,7 @@ function Test() {
     //         setInputHashTags(prevHashTags => prevHashTags.slice(0, -1));
     //     }
     // }
-
+    //
     // const handleDeleteTag = (index) => {
     //     setInputHashTags(prevHashTags => prevHashTags.filter((_, i) => i !== index));
     // }
@@ -58,8 +64,8 @@ function Test() {
             {/*        placeholder="태그를 설정하세요"*/}
             {/*    />*/}
             {/*</form>*/}
-            <br />
-            <br />
+            {/*<br />*/}
+            {/*<br />*/}
         </div>
     );
 }

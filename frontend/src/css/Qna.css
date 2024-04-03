@@ -63,7 +63,7 @@
     /*border: 1px solid;*/
     margin: 10px;
     font-size: 15px;
-    width: 50%;
+    width: 40%;
     height: 100%;
 }
 
@@ -123,6 +123,7 @@
 .qna-info-detail{
     display: flex;
     color: #495057;
+    font-size: 12px;
 }
 
 .qna-info-user-data{
@@ -265,6 +266,21 @@
     color: rgb(134, 142, 150);
 }
 
+.qnaList-hash-li{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin: 0px 10px 0px 0px;
+    padding: 3px 13.333px;
+    background: rgb(248, 249, 250);
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 13px;
+    color: rgb(44, 41, 41);
+}
+
 .hash-div1{
     margin: 0px;
     padding: 0px;
@@ -290,4 +306,19 @@
 
 .hash-span{
     margin-right: 5px;
+}
+
+.heart-icon::before{
+    content: "\f004";
+    font-family: "Font Awesome 5 Free";
+}
+
+.view-icon::before{
+    content: "\f06e";
+    font-family: "Font Awesome 5 Free";
+}
+
+.comment-icon::before{
+    content: "\f075";;
+    font-family: "Font Awesome 5 Free";
 }

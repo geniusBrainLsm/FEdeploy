@@ -67,12 +67,9 @@ function QnaCreate(props){
 
         // 모든 배열 요소를 문자열 객체로 변환하여 문자열로 합침
         // inputHashTags 배열을 객체로 변환하여 key-value 형태로 추가
-        const tagObject = inputHashTag.reduce((obj, tag, index) => {
-            obj[`tag${index + 1}`] = tag;
-            return obj;
-        }, {});
-
-        console.log('Tag Object:', tagObject);
+        const tagArray = inputHashTag.map((tag) => {
+            return { contents: tag };
+        });
 
         // 현재 사용자 정보를 가져오는 비동기 함수
         currentUser()
@@ -80,18 +77,18 @@ function QnaCreate(props){
                 // 현재 사용자 정보를 받은 후에 formData 객체 생성 및 createQna 호출
                 const formData = {
                     title: textTitle,
-                    tag: JSON.stringify(tagObject),
+                    tag: tagArray,
                     writer: currentUser.name,
                     boardType: selectedValue,
                     contents: textContent,
                     likeCount: 0,
                     viewCounter: 0,
-                    commentCounter: 0
+                    commentsCounter: 0
                 };
 
                 createQna(formData)
                     .then(() => {
-                        navigate('/Qna'); // 게시글 작성 성공 시 /Qna url로 이동
+                        navigate('/QnaList'); // 게시글 작성 성공 시 /QnaList url로 이동
                     })
                     .catch((error) => {
                         alert('게시글 작성 실패');

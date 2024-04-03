@@ -3,7 +3,19 @@ import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import '../css/Qna.css';
 import {readQna} from "../util/APIUtils";
+import '@fortawesome/fontawesome-free/css/all.css';
 import Pagination from 'react-bootstrap/Pagination';
+
+function formatDate(isoDate) {
+    const date = new Date(isoDate);
+    const year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+    let hours = date.getHours().toString().padStart(2, '0');
+    let minutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
 
 function QnaList(){
 
@@ -24,6 +36,7 @@ function QnaList(){
             try {
                 const response = await readQna();
                 setQnaList(response); // 가져온 데이터를 상태에 설정합니다.
+                console.log(qnaList);
             } catch (error) {
                 console.error("Error fetching Q&A data:", error);
             }
@@ -67,44 +80,50 @@ function QnaList(){
                         <button className={`sorts-btn ${activeSort === "좋아요순" ? "active" : ""}`} onClick={() => handleSortClick("좋아요순")}>좋아요순</button>
                         <button className={"write-btn"} onClick={navigateToDetail}>글쓰기</button>
                     </div>
-                    <div className="qna">
                         {/* 게시글 데이터를 반복하여 화면에 표시합니다. */}
                         {qnaList.map((qnaItem, index) => (
-                            <a href="#" className="qna-a" key={index}>
-                                <div className="qna-info">
-                                    <div>
-                                        <h4>{qnaItem.title}</h4>
-                                    </div>
-                                    <div>
-                                        <p>{qnaItem.contents}</p>
-                                    </div>
-                                    <div className="qna-tag">
-                                        <span>{qnaItem.tag}</span>
-                                    </div>
-                                    <div className="qna-info-detail">
+                            <div className="qna">
+                                    <a href="#" className="qna-a" key={index}>
+                                    <div className="qna-info">
                                         <div>
-                                            <span>{qnaItem.writer}</span>
-                                            <span>&nbsp;</span>
-                                            <span>{qnaItem.date}</span>
+                                            <h4>{qnaItem.title}</h4>
                                         </div>
-                                        <div className="qna-info-user-data">
-                                            <span>하트</span>
-                                            <span>&nbsp;</span>
-                                            <span>{qnaItem.likeCount}</span>
-                                            <span>&nbsp;</span>
-                                            <span>조회수</span>
-                                            <span>&nbsp;</span>
-                                            <span>{qnaItem.viewCounter}</span>
-                                            <span>&nbsp;</span>
-                                            <span>답글</span>
-                                            <span>&nbsp;</span>
-                                            <span>{qnaItem.commentCounter}</span>
+                                        <div>
+                                            <p>{qnaItem.contents}</p>
+                                        </div>
+                                        <div className="qna-tag">
+                                            <ul className="hash-ul">
+                                                {qnaItem.tag.map((tag, tagIndex) => (
+                                                    <li className="qnaList-hash-li" key={tagIndex}>
+                                                        <span>{tag.contents}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="qna-info-detail">
+                                            <div>
+                                                <span>작성자 : {qnaItem.writer}</span>
+                                                <span>&nbsp;</span>
+                                                <span>{formatDate(qnaItem.createdAt)}</span>
+                                            </div>
+                                            <div className="qna-info-user-data">
+                                                <span className="heart-icon"></span>
+                                                <span>&nbsp;</span>
+                                                <span>{qnaItem.likeCount}</span>
+                                                <span className="">&nbsp;</span>
+                                                <span className="view-icon"></span>
+                                                <span>&nbsp;</span>
+                                                <span>{qnaItem.viewCounter}</span>
+                                                <span className="">&nbsp;</span>
+                                                <span className="comment-icon"></span>
+                                                <span>&nbsp;</span>
+                                                <span>{qnaItem.commentsCounter}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         ))}
-                    </div>
                 </div>
             </div>
         </div>
