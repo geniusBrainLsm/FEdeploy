@@ -322,3 +322,154 @@
     content: "\f075";;
     font-family: "Font Awesome 5 Free";
 }
+
+
+/* QnaRead Css*/
+
+.qna-read-container{
+    display: grid;
+    grid-template-areas: "main sidebar";
+    grid-template-columns: minmax(0, 812px) 388px;
+    margin: 0 auto;
+    max-width: 1200px;
+    box-sizing: content-box;
+    color: #212529;
+}
+
+.qna-read-view{
+    grid-area: main;
+    height: 100%;
+    min-height: 980px;
+    border-left: 1px solid #e9efea;
+    border-right: 1px solid #e9efea;
+}
+
+.qna-read-header{
+    padding: 40px 40px 20px;
+    color: #24262a;
+}
+
+.qna-read-header-title{
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 150%;
+    letter-spacing: -.3px;
+    word-break: break-all;
+}
+
+.qna-read-header-time{
+    width: 100%;
+    color: #393b3f;
+    font-size: .875rem;
+}
+
+.qna-read-horizon{
+    margin: 0 30px;
+    height: 1px;
+    background-color: #e9ecef;
+}
+
+.qna-read-body{
+    padding: 40px 40px;
+}
+
+.qna-read-body-contents{
+    min-height: 48px;
+}
+
+.qna-read-body-hashtag{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -8px;
+    margin-top: 28px;
+    padding: 0;
+}
+
+.qna-read-body-hashtag-li{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin: 0px 10px 0px 0px;
+    padding: 3px 13.333px;
+    background: #f1f3f5;
+    border-radius: 4px;
+    font-weight: 1000;
+    font-size: 13px;
+    color: rgb(51, 49, 49);
+}
+
+.qna-read-comment-body{
+    padding: 40px;
+    border-top: 1px solid #e9ecef;
+}
+
+.qna-read-comment-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 27px;
+}
+
+.qna-read-comment{
+    font-size: 1.125rem;
+    font-weight: 800;
+}
+
+.qna-read-comment-count{
+    color: #59d759;
+}
+
+.qna-read-comment-create{
+    display: flex;
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    cursor: pointer;
+}
+
+.qna-read-comment-create-p{
+    font-size: 1rem;
+    color: #adb5bd;
+    margin: 0;
+}
+
+.qna-read-comment-none-body{
+    margin: 32px 0;
+}
+
+.qna-read-comment-none{
+    display: flex;
+    align-items: center;
+    width: 210px;
+    height: 374px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.qna-read-comment-none-icon::before {
+    content: "\f4a3"; /* 아이콘 유니코드 */
+    font-weight: 100; /* 폰트 두께 */
+    font-size: 1.5em; /* 아이콘 크기 */
+    line-height: 1; /* 라인 높이 */
+    vertical-align: middle; /* 수직 정렬 */
+}
+
+.qna-read-comment-none-span{
+    color: #8d9093;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.qna-read-sidebar{
+    position: sticky;
+    top: 64px;
+    padding: 40px
+}
+
+/* QnaRead Css*/

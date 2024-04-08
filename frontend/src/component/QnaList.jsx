@@ -80,19 +80,22 @@ function QnaList(){
                         <button className={`sorts-btn ${activeSort === "좋아요순" ? "active" : ""}`} onClick={() => handleSortClick("좋아요순")}>좋아요순</button>
                         <button className={"write-btn"} onClick={navigateToDetail}>글쓰기</button>
                     </div>
-                        {/* 게시글 데이터를 반복하여 화면에 표시합니다. */}
+                        {/* 게시글 데이터를 반복하여 화면에 표시 */}
                         {qnaList.map((qnaItem, index) => (
                             <div className="qna">
                                     <a href="#" className="qna-a" key={index}>
                                     <div className="qna-info">
                                         <div>
+                                            {/*글 제목*/}
                                             <h4>{qnaItem.title}</h4>
                                         </div>
                                         <div>
+                                            {/*글 내용*/}
                                             <p>{qnaItem.contents}</p>
                                         </div>
                                         <div className="qna-tag">
                                             <ul className="hash-ul">
+                                                {/*해시태그*/}
                                                 {qnaItem.tag.map((tag, tagIndex) => (
                                                     <li className="qnaList-hash-li" key={tagIndex}>
                                                         <span>{tag.contents}</span>
@@ -102,19 +105,24 @@ function QnaList(){
                                         </div>
                                         <div className="qna-info-detail">
                                             <div>
+                                                {/*글쓴이*/}
                                                 <span>작성자 : {qnaItem.writer}</span>
                                                 <span>&nbsp;</span>
+                                                {/*작성일*/}
                                                 <span>{formatDate(qnaItem.createdAt)}</span>
                                             </div>
                                             <div className="qna-info-user-data">
+                                                {/*좋아요 개수*/}
                                                 <span className="heart-icon"></span>
                                                 <span>&nbsp;</span>
                                                 <span>{qnaItem.likeCount}</span>
                                                 <span className="">&nbsp;</span>
+                                                {/*조회수*/}
                                                 <span className="view-icon"></span>
                                                 <span>&nbsp;</span>
                                                 <span>{qnaItem.viewCounter}</span>
                                                 <span className="">&nbsp;</span>
+                                                {/*댓글 개수*/}
                                                 <span className="comment-icon"></span>
                                                 <span>&nbsp;</span>
                                                 <span>{qnaItem.commentsCounter}</span>
