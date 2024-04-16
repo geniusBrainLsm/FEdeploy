@@ -49,8 +49,11 @@ function QnaList(){
 
     return(
         <div>
-            <div className="qrc-image-div2">
-                이미지
+            <div className="community-header">
+                <div className="community-header-content">
+                    <h2 className="community-header-content-title">커뮤니티 게시판</h2>
+                    <p className="community-header-content-sub-title">질문사항이나 개선사항을 작성하세요!</p>
+                </div>
             </div>
             <div className="qna-container">
                 <div className="vertical-menu">
@@ -72,6 +75,28 @@ function QnaList(){
                 <div className="qna-container2">
                     <div className="qna-guide">
                         <span>커뮤니티 / 질문 / 답변</span>
+                    </div>
+                    <div className="qna-search-filter">
+                        <form>
+                            <div className="qna-search-item">
+                                <input
+                                    className="qna-search-item-input"
+                                    placeholder="질문을 검색해보세요!"
+                                />
+                                <button className="qna-search-btn">
+                                    <span>검색</span>
+                                </button>
+                            </div>
+                            <div className="qna-search-item">
+                                <input
+                                    className="qna-search-item-input"
+                                    placeholder="태그로 검색해보세요!"
+                                />
+                                <button className="qna-search-reset-btn">
+                                    <span>초기화</span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <div className="qna-posts">
                         <button className={`sorts-btn ${activeSort === "최신순" ? "active" : ""}`} onClick={() => handleSortClick("최신순")}>최신순</button>

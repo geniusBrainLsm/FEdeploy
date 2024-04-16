@@ -1,8 +1,15 @@
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from "react";
+import QuillEditor from "./QuillEditor";
+import {show} from "react-modal/lib/helpers/ariaAppHider";
 
 function QnaRead(){
+
+    const [showEditor, setShowEditor] = useState(false);
+
+    const toggleEditor = () => {
+        setShowEditor(!showEditor);
+    };
+
     return(
         <div className="qna-read-container">
             <div className="qna-read-view">
@@ -69,12 +76,28 @@ function QnaRead(){
                         <p>
                             <span>댓글</span>
                             &nbsp;
-                            <span className="qna-read-comment-count">20</span>
+                            <span className="qna-read-comment-count">0</span>
                         </p>
                     </div>
-                    <div className="qna-read-comment-create">
-                        <p className="qna-read-comment-create-p">댓글을 작성해보세요.</p>
-                    </div>
+                    {!showEditor && (
+                        <div className="qna-read-comment-create" onClick={toggleEditor}>
+                            <p className="qna-read-comment-create-p">댓글을 작성해보세요.</p>
+                        </div>
+                    )}
+                    {showEditor && (
+                        <div>
+                            <QuillEditor
+                                className={"qna-read-comment-content"}
+                                // value={textContent}
+                                // onChange={handleContentChange}
+                                placeholder="댓글을 입력해주세요."
+                            />
+                            <div className="qna-detail-btn">
+                                <button className="cancel-btn" onClick={toggleEditor}>취소</button>
+                                <button type={"submit"} className="registration-btn">등록</button>
+                            </div>
+                        </div>
+                    )}
                     <div className="qna-read-comment-none">
                         <div className="qna-read-comment-none">
                             <p className="qna-read-comment-none-span">
@@ -82,21 +105,34 @@ function QnaRead(){
                                 <br/>
                                 답변을 입력해주세요!
                             </p>
-
                         </div>
                     </div>
                 </div>
             </div>
             <div className="qna-read-sidebar">
-                <div>
-                    작성자
+                <div className="qna-read-profile-info-card">
+                    <a className="qna-read-user-info-profile-card2">
+                        <div className="qna-read-user-info">
+                            <div>
+                                <h3 className="qna-read-user">작성자</h3>
+                            </div>
+                            <div>
+                                <p className="qna-read-user-p">작성한 질문수 1</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div>
-                    카테고리목록 기타등등
+                <div className="qna-read-info-card">
+                    <div>
+                        <p>카테고리</p>
+                    </div>
+                    <div>
+                        <p>세부 분야</p>
+                    </div>
+                    <div>
+                        <p>해결 여부</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-
             </div>
         </div>
     )

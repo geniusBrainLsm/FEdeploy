@@ -323,6 +323,84 @@
     font-family: "Font Awesome 5 Free";
 }
 
+/* QnaList Css*/
+
+.community-header{
+    padding: 24px 0;
+    width: 100%;
+    background-color: #333b3d;
+}
+
+.community-header-content{
+    margin: 0 auto;
+    max-width: 1160px;
+}
+
+.community-header-content-title{
+    height: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: .71;
+    color: #fff;
+}
+
+.community-header-content-sub-title{
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: normal;
+    color: #fff;
+}
+
+.qna-search-filter{
+    padding: 20px 0 24px;
+}
+
+.qna-search-item{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.qna-search-item-input{
+    width: 100%;
+    display: flex;
+    padding: 10px 12px;
+    height: 40px;
+    letter-spacing: -.3px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.qna-search-btn{
+    min-width: 96px;
+    margin-left: 16px;
+    height: 40px;
+    font-weight: 700;
+    background-color: #00c471;
+    border: 1px solid #00c471;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.qna-search-reset-btn{
+    min-width: 96px;
+    margin-left: 16px;
+    height: 40px;
+    font-weight: 700;
+    background-color: #00a0c4;
+    border: 1px solid #00a0c4;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+/* QnaList Css*/
 
 /* QnaRead Css*/
 
@@ -472,4 +550,46 @@
     padding: 40px
 }
 
+.qna-read-profile-info-card{
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 10px 15px -5px rgba(0,0,0,.05), 0 7px 7px -5px rgba(0,0,0,.04);
+    margin-bottom: 16px;
+    padding: 24px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.qna-read-info-card{
+    padding: 24px;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+}
+
+.qna-read-user-info-profile-card2{
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+
+.qna-read-user-info{
+    width: 182px;
+}
+
+.qna-read-user{
+    overflow: hidden;
+    margin-bottom: 0;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: black;
+    font-size: 1.125rem !important;
+}
+
+.qna-read-user-p{
+    margin-top: 2px;
+    color: #868e96;
+}
 /* QnaRead Css*/

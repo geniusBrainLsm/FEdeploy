@@ -68,7 +68,7 @@ function Header(props){
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        <hr/>
+        <hr style={{margin:0}}/>
         </div>
     );
 }

@@ -3,18 +3,18 @@
     justify-content: center;
 }
 
-.test-div{
-    /*border: 1px solid;*/
-    display: flex;
-    margin: 10px;
-    font-size: 15px;
-    width: 350px;
-    height: 800px;
-}
+/*.test-div{*/
+/*    !*border: 1px solid;*!*/
+/*    display: flex;*/
+/*    margin: 10px;*/
+/*    font-size: 15px;*/
+/*    width: 350px;*/
+/*    height: 800px;*/
+/*}*/
 
-.test-div1{
-    width: 100%;
-}
+/*.test-div1{*/
+/*    width: 100%;*/
+/*}*/
 
 .qrc-container2{
     /*border: 1px solid;*/

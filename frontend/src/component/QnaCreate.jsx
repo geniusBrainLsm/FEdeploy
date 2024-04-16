@@ -1,8 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import '../css/Qna.css';
 import { useNavigate } from "react-router-dom";
-import ReactQuill from "react-quill";
 import {createQna, currentUser} from "../util/APIUtils";
+import QuillEditor from "./QuillEditor";
 function QnaCreate(props){
 
     const [textTitle, setTextTitle] = useState('');
@@ -107,14 +107,14 @@ function QnaCreate(props){
             <div className="qna-detail-wrapper">
                 <form onSubmit={handleSubmit}>
                     <div>
-                    <textarea
-                        value={textTitle}
-                        ref={textareaRef}
-                        onChange={adjustTextareaHeight}
-                        className="qna-detail-text-title"
-                        rows="1"
-                        placeholder={"글제목을 입력해주세요"}
-                    />
+                        <textarea
+                            value={textTitle}
+                            ref={textareaRef}
+                            onChange={adjustTextareaHeight}
+                            className="qna-detail-text-title"
+                            rows="1"
+                            placeholder={"글제목을 입력해주세요"}
+                        />
                     </div>
                     <div>
                         <div className="hash-div1">
@@ -154,9 +154,8 @@ function QnaCreate(props){
                         </select>
                     </div>
                     <div>
-                        <ReactQuill
+                        <QuillEditor
                             className="qna-detail-content"
-                            theme="snow"
                             value={textContent}
                             onChange={handleContentChange}
                             placeholder="-학습 관련 질문을 남겨주세요."
