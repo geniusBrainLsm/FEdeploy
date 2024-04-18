@@ -120,7 +120,7 @@ function QnaCreate(props){
                         <div className="hash-div1">
                             <ul className="hash-ul">
                                 {inputHashTag.map((tag, index) => (
-                                    <li className="hash-li" key={index}>
+                                    <li className="qna-search-hash-li" key={index}>
                                         <span className="hash-span">{tag}</span>
                                         <button className="hash-delete-btn" onClick={() => handleDeleteTag(index)}>
                                             <svg

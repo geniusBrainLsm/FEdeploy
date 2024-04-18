@@ -22,6 +22,28 @@ function QnaList(){
     const navigate = useNavigate();
     const [activeSort, setActiveSort] = useState(""); // 현재 활성화된 정렬 버튼의 상태를 관리
     const [qnaList, setQnaList] = useState([]); // 게시글 데이터
+    const [hashTag, setHashTag] = useState('');
+    const [inputHashTag, setInputHashTag] = useState([]);
+
+    const handleOnHashTagChange = (e) => {
+        const { value } = e.target;
+        setHashTag(value);
+    }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && hashTag.trim() !== '') {
+            setInputHashTag(prevHashTags => [...prevHashTags, hashTag.trim()]);
+            setHashTag('');
+            e.preventDefault(); // Input에서 엔터키 누를 시 Form 요청으로 넘어가는걸 방지
+        } else if (e.key === 'Backspace' && hashTag === '') {
+            setInputHashTag(prevHashTags => prevHashTags.slice(0, -1));
+        }
+    }
+
+    const handleDeleteTag = (index) => {
+        setInputHashTag(prevHashTags => prevHashTags.filter((_, i) => i !== index));
+    }
+
     const handleSortClick = (sortType) => {
         setActiveSort(sortType); // 클릭한 버튼의 종류를 상태로 설정
     };
@@ -79,19 +101,48 @@ function QnaList(){
                     <div className="qna-search-filter">
                         <form>
                             <div className="qna-search-item">
-                                <input
-                                    className="qna-search-item-input"
-                                    placeholder="질문을 검색해보세요!"
-                                />
+                                <div className="qna-search-item2">
+                                    <input
+                                        className="qna-search-item-input"
+                                        placeholder="질문을 검색해보세요!"
+                                    />
+                                </div>
                                 <button className="qna-search-btn">
                                     <span>검색</span>
                                 </button>
                             </div>
                             <div className="qna-search-item">
-                                <input
-                                    className="qna-search-item-input"
-                                    placeholder="태그로 검색해보세요!"
-                                />
+                                <div className="qna-search-hash-box">
+                                    <div className="qna-search-hash-box2">
+                                        <ul className="hash-ul">
+                                            {inputHashTag.map((tag, index) => (
+                                                <li className="qna-search-hash-li" key={index}>
+                                                    <span className="hash-span">{tag}</span>
+                                                    <button className="hash-delete-btn" onClick={() => handleDeleteTag(index)}>
+                                                        <svg
+                                                            width="8"
+                                                            height="8"
+                                                            viewBox="0 0 100 100"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            style={{ cursor: 'pointer' }} // 마우스가 올라가면 커서를 포인터로 변경합니다.
+                                                        >
+                                                            <line x1="10" y1="10" x2="90" y2="90" stroke="black" strokeWidth="20" />
+                                                            <line x1="90" y1="10" x2="10" y2="90" stroke="black" strokeWidth="20" />
+                                                        </svg>
+                                                    </button>
+                                                </li>
+                                            ))}
+                                            <input
+                                                className="qna-search-hash-input"
+                                                type="text"
+                                                value={hashTag}
+                                                onChange={handleOnHashTagChange}
+                                                onKeyDown={handleKeyDown}
+                                                placeholder="태그를 설정하세요"
+                                            />
+                                        </ul>
+                                    </div>
+                                </div>
                                 <button className="qna-search-reset-btn">
                                     <span>초기화</span>
                                 </button>
