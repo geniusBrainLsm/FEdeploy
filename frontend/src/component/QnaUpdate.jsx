@@ -27,7 +27,6 @@ function QnaUpdate(){
 
     const handleContentChange = (text) => {
         setTextContent(text);
-
     }
 
     const handleSelectChange = (e) => {

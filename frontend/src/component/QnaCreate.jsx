@@ -26,8 +26,7 @@ function QnaCreate(props){
     }
 
     const handleContentChange = (text) => {
-        const plainText = text.replace(/<\/?[^>]+(>|$)/g, ''); // HTML 태그 제거
-        setTextContent(plainText);
+        setTextContent(text);
     }
 
     const handleSelectChange = (e) => {
@@ -71,6 +70,8 @@ function QnaCreate(props){
             return { contents: tag };
         });
 
+        const pureTextContent = textContent.replace(/<[^>]+>/g, '');
+
         // 현재 사용자 정보를 가져오는 비동기 함수
         currentUser()
             .then(currentUser => {
@@ -80,7 +81,7 @@ function QnaCreate(props){
                     tag: tagArray,
                     writer: currentUser.name,
                     boardType: selectedValue,
-                    contents: textContent,
+                    contents: pureTextContent,
                     likeCount: 0,
                     viewCount: 0,
                     commentsCount: 0
