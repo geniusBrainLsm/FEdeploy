@@ -26,8 +26,8 @@ function QnaCreate(props){
     }
 
     const handleContentChange = (text) => {
-        setTextContent(text);
-
+        const plainText = text.replace(/<\/?[^>]+(>|$)/g, ''); // HTML 태그 제거
+        setTextContent(plainText);
     }
 
     const handleSelectChange = (e) => {
@@ -82,8 +82,8 @@ function QnaCreate(props){
                     boardType: selectedValue,
                     contents: textContent,
                     likeCount: 0,
-                    viewCounter: 0,
-                    commentsCounter: 0
+                    viewCount: 0,
+                    commentsCount: 0
                 };
 
                 createQna(formData)

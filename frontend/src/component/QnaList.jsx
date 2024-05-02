@@ -22,8 +22,13 @@ function QnaList(){
     const navigate = useNavigate();
     const [activeSort, setActiveSort] = useState(""); // 현재 활성화된 정렬 버튼의 상태를 관리
     const [qnaList, setQnaList] = useState([]); // 게시글 데이터
+    const [qnaSearch, setQnaSearch] = useState('');
     const [hashTag, setHashTag] = useState('');
     const [inputHashTag, setInputHashTag] = useState([]);
+
+    const handleQnaSearch = (e) => {
+        setQnaSearch(e.target.value);
+    }
 
     const handleOnHashTagChange = (e) => {
         const { value } = e.target;
@@ -56,16 +61,16 @@ function QnaList(){
         // readQna 함수를 호출하여 게시글 데이터를 가져옵니다.
         const fetchData = async () => {
             try {
-                const response = await readQna();
-                setQnaList(response); // 가져온 데이터를 상태에 설정합니다.
-                console.log(qnaList);
+                const response = await readQna(qnaSearch);
+                setQnaList(response.content); // 가져온 데이터를 상태에 설정합니다.
+                console.log(response);
             } catch (error) {
                 console.error("Error fetching Q&A data:", error);
             }
         };
 
         fetchData().then(r => {
-            console.log("성공")
+            // console.log("성공")
         }); // useEffect에서 바로 호출하여 컴포넌트가 마운트될 때 데이터를 가져오도록 합니다.
     }, []);
 
@@ -104,6 +109,8 @@ function QnaList(){
                                 <div className="qna-search-item2">
                                     <input
                                         className="qna-search-item-input"
+                                        value={qnaSearch}
+                                        onChange={handleQnaSearch}
                                         placeholder="질문을 검색해보세요!"
                                     />
                                 </div>
@@ -111,6 +118,7 @@ function QnaList(){
                                     <span>검색</span>
                                 </button>
                             </div>
+                            {/* 해시코드 검색창 */}
                             <div className="qna-search-item">
                                 <div className="qna-search-hash-box">
                                     <div className="qna-search-hash-box2">
@@ -151,15 +159,14 @@ function QnaList(){
                     </div>
                     <div className="qna-posts">
                         <button className={`sorts-btn ${activeSort === "최신순" ? "active" : ""}`} onClick={() => handleSortClick("최신순")}>최신순</button>
-                        <button className={`sorts-btn ${activeSort === "정확도순" ? "active" : ""}`} onClick={() => handleSortClick("정확도순")}>정확도순</button>
                         <button className={`sorts-btn ${activeSort === "조회수순" ? "active" : ""}`} onClick={() => handleSortClick("조회수순")}>조회수순</button>
                         <button className={`sorts-btn ${activeSort === "좋아요순" ? "active" : ""}`} onClick={() => handleSortClick("좋아요순")}>좋아요순</button>
                         <button className={"write-btn"} onClick={navigateToDetail}>글쓰기</button>
                     </div>
                         {/* 게시글 데이터를 반복하여 화면에 표시 */}
-                        {qnaList.map((qnaItem, index) => (
-                            <div className="qna">
-                                    <a href="#" className="qna-a" key={index}>
+                        {qnaList && qnaList.length > 0 && qnaList.map((qnaItem, index) => (
+                        <div className="qna" key={qnaItem.id}>
+                                <a href={`/QnaRead/${qnaItem.id}`} className="qna-a" key={index}>
                                     <div className="qna-info">
                                         <div>
                                             {/*글 제목*/}
@@ -196,12 +203,12 @@ function QnaList(){
                                                 {/*조회수*/}
                                                 <span className="view-icon"></span>
                                                 <span>&nbsp;</span>
-                                                <span>{qnaItem.viewCounter}</span>
+                                                <span>{qnaItem.viewCount}</span>
                                                 <span className="">&nbsp;</span>
                                                 {/*댓글 개수*/}
                                                 <span className="comment-icon"></span>
                                                 <span>&nbsp;</span>
-                                                <span>{qnaItem.commentsCounter}</span>
+                                                <span>{qnaItem.commentsCount}</span>
                                             </div>
                                         </div>
                                     </div>

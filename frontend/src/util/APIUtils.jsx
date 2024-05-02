@@ -63,16 +63,37 @@ export function createQna(createQnaRequest){
     })
 }
 
-export function readQna(){
+export function readQna(keyword, viewNum, pageNum, boardNum) {
+    const queryParams = new URLSearchParams({
+        keyword: keyword,
+        sortBy: viewNum,
+        page: pageNum,
+        size: boardNum,
+    });
+
+    const url = `${API_BASE_URL}/api/board?${queryParams.toString()}`;
+
     return request({
-        url: API_BASE_URL + "/api/board",
-        method: 'GET',
-    })
+        url: url,
+        method: 'GET'
+    });
 }
+
+export function getQnaRead(id) {
+
+    const url = `${API_BASE_URL}/api/board/${id}`;
+
+    return request({
+        url: url,
+        method: 'GET'
+    });
+}
+
+
 
 export function currentUser(){
     return request({
         url: API_BASE_URL + "/user/me",
-        method: 'GET',
+        method: 'GET'
     })
 }

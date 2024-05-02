@@ -58,7 +58,7 @@ function App() {
                 <Route path="/questionRoom" element={<QuestionRoom />} />
                 <Route path="/qnaList" element={<QnaList />} />
                 <Route path="/qnaCreate" element={<QnaCreate />}/>
-                <Route path="/qnaRead" element={<QnaRead />}/>
+                <Route path="/qnaRead/:id" element={<QnaRead />}/>
                 <Route path="/qnaDelete" element={<QnaDelete />}/>
                 <Route path="/qnaUpdate" element={<QnaUpdate />}/>
             </Routes>
