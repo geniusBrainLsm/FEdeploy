@@ -491,7 +491,10 @@
     word-break: break-all;
 }
 
-.qna-read-header-time{
+.qna-read-header-time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     color: #393b3f;
     font-size: .875rem;

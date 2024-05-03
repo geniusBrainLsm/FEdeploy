@@ -2,9 +2,14 @@ import React, {useEffect, useState} from "react";
 import QuillEditor from "./QuillEditor";
 import {getQnaRead} from "../util/APIUtils";
 import {useParams} from "react-router-dom";
+import QnaDelete from "./QnaDelete";
+import Button from "react-bootstrap/Button";
+import QnaUpdate from "./QnaUpdate";
 
-function QnaRead(props){
+function QnaRead(){
 
+    const [modalShowUpdate, setModalShowUpdate] = React.useState(false);
+    const [modalShowDelete, setModalShowDelete] = React.useState(false);
     const [showEditor, setShowEditor] = useState(false);
     const [qnaRead, setQnaRead] = useState([]);
 
@@ -39,13 +44,29 @@ function QnaRead(props){
                         {qnaRead.title}
                     </div>
                     <div className="qna-read-header-time">
-                        <p>
+                        <span>
                             <span>{qnaRead.createdAt}</span>
                             <span>&nbsp;</span>
                             <span>조회수 : {qnaRead.viewCount}</span>
                             <span>&nbsp;</span>
                             <span>좋아요수 : {qnaRead.likeCount}</span>
-                        </p>
+                        </span>
+                        <div>
+                            <Button variant="primary" onClick={() => setModalShowUpdate(true)}>
+                                수정
+                            </Button>
+                            <QnaUpdate
+                                show={modalShowUpdate}
+                                onHide={() => setModalShowUpdate(false)}
+                            />
+                            <Button variant="primary" onClick={() => setModalShowDelete(true)}>
+                                삭제
+                            </Button>
+                            <QnaDelete  
+                                show={modalShowDelete}
+                                onHide={() => setModalShowDelete(false)}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="qna-read-horizon">

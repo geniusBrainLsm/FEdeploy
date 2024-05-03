@@ -63,6 +63,7 @@ export function createQna(createQnaRequest){
     })
 }
 
+// 게시글 리스트 조회
 export function readQna(keyword, viewNum, pageNum, boardNum) {
     const queryParams = new URLSearchParams({
         keyword: keyword,
@@ -79,6 +80,7 @@ export function readQna(keyword, viewNum, pageNum, boardNum) {
     });
 }
 
+// 게시글 내용 조회
 export function getQnaRead(id) {
 
     const url = `${API_BASE_URL}/api/board/${id}`;
@@ -89,7 +91,16 @@ export function getQnaRead(id) {
     });
 }
 
+// 게시글 내용 삭제
+export function deleteQna(id){
 
+    const url = `${API_BASE_URL}/api/board/${id}`;
+
+    return request({
+        url: url,
+        method: `DELETE`
+    })
+}
 
 export function currentUser(){
     return request({
