@@ -55,12 +55,15 @@ export function signUp(signupRequest) {
     });
 }
 
-export function createQna(createQnaRequest){
+export function createQna(formData) {
     return request({
         url: API_BASE_URL + "/api/board",
         method: 'POST',
-        body: JSON.stringify(createQnaRequest)
-    })
+        body: formData,
+        headers: {
+            // Content-Type 지정안함(브라우저에서 자동으로하도록)
+        }
+    }).then(response => response.json());
 }
 
 // 게시글 리스트 조회

@@ -1,15 +1,16 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useState, useRef } from 'react';
 import '../css/Qna.css';
 import { useNavigate } from "react-router-dom";
-import {createQna, currentUser} from "../util/APIUtils";
+import { createQna, currentUser } from "../util/APIUtils";
 import QuillEditor from "./QuillEditor";
-function QnaCreate(props){
 
+function QnaCreate(props) {
     const [textTitle, setTextTitle] = useState('');
     const [textContent, setTextContent] = useState('');
     const [hashTag, setHashTag] = useState('');
     const [inputHashTag, setInputHashTag] = useState([]);
     const [selectedValue, setSelectedValue] = useState('1');
+    const [images, setImages] = useState([]);
 
     const selectList = [
         { value: "1", name: "질문/답변" },
@@ -18,7 +19,7 @@ function QnaCreate(props){
     ];
 
     const navigate = useNavigate();
-    const textareaRef = useRef(null); // textarea의 높이를 자동으로 조절하는 함수
+    const textareaRef = useRef(null);
 
     const handleOnHashTagChange = (e) => {
         const { value } = e.target;
@@ -38,7 +39,7 @@ function QnaCreate(props){
         if (e.key === 'Enter' && hashTag.trim() !== '') {
             setInputHashTag(prevHashTags => [...prevHashTags, hashTag.trim()]);
             setHashTag('');
-            e.preventDefault(); // Input에서 엔터키 누를 시 Form 요청으로 넘어가는걸 방지
+            e.preventDefault();
         } else if (e.key === 'Backspace' && hashTag === '') {
             setInputHashTag(prevHashTags => prevHashTags.slice(0, -1));
         }
@@ -52,8 +53,8 @@ function QnaCreate(props){
         const textarea = textareaRef.current;
         setTextTitle(e.target.value);
         if (textarea) {
-            textarea.style.height = 'auto'; // 높이를 자동으로 조절하기 위해 높이를 'auto'로 설정
-            textarea.style.height = `${textarea.scrollHeight}px`; // 실제 스크롤된 높이로 textarea의 높이를 설정
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
         }
     };
 
@@ -61,49 +62,67 @@ function QnaCreate(props){
         navigate("/QnaList");
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // 모든 배열 요소를 문자열 객체로 변환하여 문자열로 합침
-        // inputHashTags 배열을 객체로 변환하여 key-value 형태로 추가
-        const tagArray = inputHashTag.map((tag) => {
-            return { contents: tag };
-        });
-
+        const tagArray = inputHashTag.map(tag => ({ contents: tag }));
         const pureTextContent = textContent.replace(/<[^>]+>/g, '');
 
-        // 현재 사용자 정보를 가져오는 비동기 함수
-        currentUser()
-            .then(currentUser => {
-                // 현재 사용자 정보를 받은 후에 formData 객체 생성 및 createQna 호출
-                const formData = {
-                    title: textTitle,
-                    tag: tagArray,
-                    writer: currentUser.name,
-                    boardType: selectedValue,
-                    contents: pureTextContent,
-                    likeCount: 0,
-                    viewCount: 0,
-                    commentsCount: 0
-                };
+        try {
+            const user = await currentUser();
 
-                createQna(formData)
-                    .then(() => {
-                        navigate('/QnaList'); // 게시글 작성 성공 시 /QnaList url로 이동
-                    })
-                    .catch((error) => {
-                        alert('게시글 작성 실패');
-                        console.log(error);
-                    });
-            })
-            .catch(error => {
-                console.error('현재 사용자 정보를 가져오는데 실패했습니다:', error);
-                // 사용자 정보를 가져오지 못한 경우에 대한 에러 처리
-                alert('현재 사용자 정보를 가져오는데 실패했습니다');
+            const formData = new FormData();
+
+            // 이미지를 서버에 업로드하고 URL을 받아옴
+            const imageUrls = await Promise.all(images.map(async (image) => {
+                const imageData = new FormData();
+                imageData.append('image', image.file);
+
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: imageData,
+                });
+                const data = await response.json();
+                return data.url;
+            }));
+
+            // 에디터 내용에서 base64 이미지를 실제 URL로 대체
+            let contentsWithUrls = textContent;
+            images.forEach((image, index) => {
+                contentsWithUrls = contentsWithUrls.replace(image.base64ImageSrc, imageUrls[index]);
             });
+
+            // boardDTO 객체 생성
+            const boardDTO = {
+                title: textTitle,
+                tag: tagArray,
+                writer: user.name,
+                boardType: selectedValue,
+                contents: contentsWithUrls,
+                likeCount: 0,
+                viewCount: 0,
+                commentsCount: 0
+            };
+
+            // boardDTO를 JSON 문자열로 변환하여 FormData에 추가
+            formData.append('boardDTO', new Blob([JSON.stringify(boardDTO)], {
+                type: 'application/json'
+            }));
+
+            // 이미지 파일들을 FormData에 추가 (서버에서 필요한 경우)
+            images.forEach((image, index) => {
+                formData.append('files', image.file);
+            });
+
+            await createQna(formData);
+            navigate('/QnaList');
+        } catch (error) {
+            console.error('게시글 작성 실패:', error);
+            alert('게시글 작성 실패');
+        }
     };
 
-    return(
+    return (
         <div className="qna-container">
             <div className="qna-detail-wrapper">
                 <form onSubmit={handleSubmit}>
@@ -114,7 +133,7 @@ function QnaCreate(props){
                             onChange={adjustTextareaHeight}
                             className="qna-detail-text-title"
                             rows="1"
-                            placeholder={"글제목을 입력해주세요"}
+                            placeholder="글제목을 입력해주세요"
                         />
                     </div>
                     <div>
@@ -129,7 +148,7 @@ function QnaCreate(props){
                                                 height="8"
                                                 viewBox="0 0 100 100"
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                style={{ cursor: 'pointer' }} // 마우스가 올라가면 커서를 포인터로 변경합니다.
+                                                style={{ cursor: 'pointer' }}
                                             >
                                                 <line x1="10" y1="10" x2="90" y2="90" stroke="black" strokeWidth="20" />
                                                 <line x1="90" y1="10" x2="10" y2="90" stroke="black" strokeWidth="20" />
@@ -160,18 +179,17 @@ function QnaCreate(props){
                             value={textContent}
                             onChange={handleContentChange}
                             placeholder="-학습 관련 질문을 남겨주세요."
+                            setImages={setImages}
                         />
-                    </div>
-                    <div>
                     </div>
                     <div className="qna-detail-btn">
                         <button className="cancel-btn" onClick={navigateToQna}>취소</button>
-                        <button type={"submit"} className="registration-btn">등록</button>
+                        <button type="submit" className="registration-btn">등록</button>
                     </div>
                 </form>
             </div>
         </div>
-    )
+    );
 }
 
 export default QnaCreate;
