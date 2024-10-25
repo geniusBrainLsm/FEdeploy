@@ -62,65 +62,74 @@ function QnaCreate(props) {
         navigate("/QnaList");
     };
 
+    const [tempImages, setTempImages] = useState([]);
+
+    const handleImageUpload = (image) => {
+        setTempImages([...tempImages, image]);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const tagArray = inputHashTag.map(tag => ({ contents: tag }));
-        const pureTextContent = textContent.replace(/<[^>]+>/g, '');
 
         try {
             const user = await currentUser();
-
             const formData = new FormData();
 
-            // 이미지를 서버에 업로드하고 URL을 받아옴
-            const imageUrls = await Promise.all(images.map(async (image) => {
-                const imageData = new FormData();
-                imageData.append('image', image.file);
+            // base64 이미지를 파일로 변환
+            const base64Pattern = /data:image\/(png|jpeg|jpg|gif);base64,([^"']+)/g;
+            let match;
+            let imageIndex = 0;
+            let contentsWithPaths = textContent;
 
-                const response = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: imageData,
-                });
-                const data = await response.json();
-                return data.url;
-            }));
+            while ((match = base64Pattern.exec(textContent)) !== null) {
+                const base64Data = match[2];
+                const imageType = match[1];
+                const byteCharacters = atob(base64Data);
+                const byteArrays = [];
 
-            // 에디터 내용에서 base64 이미지를 실제 URL로 대체
-            let contentsWithUrls = textContent;
-            images.forEach((image, index) => {
-                contentsWithUrls = contentsWithUrls.replace(image.base64ImageSrc, imageUrls[index]);
-            });
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteArrays.push(byteCharacters.charCodeAt(i));
+                }
 
-            // boardDTO 객체 생성
+                const byteArray = new Uint8Array(byteArrays);
+                const blob = new Blob([byteArray], {type: `image/${imageType}`});
+                const fileName = `image_${imageIndex}.${imageType}`;
+                const file = new File([blob], fileName, {type: `image/${imageType}`});
+
+                formData.append(`files`, file);
+
+                // 컨텐츠에서 base64 데이터를 파일 이름으로 대체
+                contentsWithPaths = contentsWithPaths.replace(match[0], `[IMAGE:${fileName}]`);
+                imageIndex++;
+            }
+
             const boardDTO = {
                 title: textTitle,
                 tag: tagArray,
                 writer: user.name,
                 boardType: selectedValue,
-                contents: contentsWithUrls,
+                contents: contentsWithPaths,
                 likeCount: 0,
                 viewCount: 0,
                 commentsCount: 0
             };
 
-            // boardDTO를 JSON 문자열로 변환하여 FormData에 추가
+            // boardDTO를 FormData에 추가
             formData.append('boardDTO', new Blob([JSON.stringify(boardDTO)], {
                 type: 'application/json'
             }));
 
-            // 이미지 파일들을 FormData에 추가 (서버에서 필요한 경우)
-            images.forEach((image, index) => {
-                formData.append('files', image.file);
-            });
-
-            await createQna(formData);
+            const response = await createQna(formData);
+            console.log('Response:', response);
             navigate('/QnaList');
         } catch (error) {
             console.error('게시글 작성 실패:', error);
-            alert('게시글 작성 실패');
+            alert('게시글 작성 실패: ' + error.message);
         }
     };
+
 
     return (
         <div className="qna-container">

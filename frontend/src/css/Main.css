@@ -28,6 +28,13 @@
     justify-content: center;
 }
 
+.cs {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .test2 {
     border: 1px solid;
     border-radius: 4px;

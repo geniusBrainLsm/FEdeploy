@@ -56,15 +56,21 @@ export function signUp(signupRequest) {
 }
 
 export function createQna(formData) {
-    return request({
-        url: API_BASE_URL + "/api/board",
+    return fetch(API_BASE_URL + "/api/board", {
         method: 'POST',
         body: formData,
-        headers: {
-            // Content-Type 지정안함(브라우저에서 자동으로하도록)
+        // headers를 설정하지 않습니다. FormData를 사용할 때는 브라우저가 자동으로 설정합니다.
+    }).then(response => {
+        if (!response.ok) {
+            return response.text().then(text => {
+                throw new Error(text);
+            });
         }
-    }).then(response => response.json());
+        return response.json();
+    });
 }
+
+
 
 // 게시글 리스트 조회
 export function readQna(keyword, viewNum, pageNum, boardNum) {

@@ -5,6 +5,7 @@ import '../css/Qna.css';
 import {readQna} from "../util/APIUtils";
 import '@fortawesome/fontawesome-free/css/all.css';
 import Pagination from 'react-bootstrap/Pagination';
+import parse from 'html-react-parser';
 
 function formatDate(isoDate) {
     const date = new Date(isoDate);
@@ -174,7 +175,7 @@ function QnaList(){
                                         </div>
                                         <div>
                                             {/*글 내용*/}
-                                            <p>{qnaItem.contents}</p>
+                                            <p>{parse(qnaItem.contents)}</p>
                                         </div>
                                         <div className="qna-tag">
                                             <ul className="hash-ul">

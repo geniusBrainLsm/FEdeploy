@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import QnaDelete from "./QnaDelete";
 import Button from "react-bootstrap/Button";
 import QnaUpdate from "./QnaUpdate";
+import parse from "html-react-parser";
 
 function QnaRead(){
 
@@ -35,6 +36,30 @@ function QnaRead(){
             // console.log("성공")
         }); // useEffect에서 바로 호출하여 컴포넌트가 마운트될 때 데이터를 가져오도록 합니다.
     }, []);
+    const parseStyles = (styleString) => {
+        return styleString.split(';').reduce((acc, style) => {
+            const [key, value] = style.split(':');
+            if (key && value) {
+                const camelCaseKey = key.trim().replace(/-./g, x => x[1].toUpperCase());
+                acc[camelCaseKey] = value.trim();
+            }
+            return acc;
+        }, {});
+    };
+
+    const parseOptions = {
+        replace: (domNode) => {
+            if (domNode.attribs && domNode.name === 'img') {
+                const { src, style, ...props } = domNode.attribs;
+                // Spring Boot 리소스 핸들러 경로에 맞게 src 수정
+                const newSrc = `/images/${src}`;
+                const styleObject = style ? parseStyles(style) : {};
+                return <img src={newSrc} style={styleObject} {...props} alt="" />;
+            }
+        }
+    };
+
+    const parsedContent = qnaRead.contents ? parse(qnaRead.contents, parseOptions) : null;
 
     return(
         <div className="qna-read-container">
@@ -74,7 +99,7 @@ function QnaRead(){
                 <div className="qna-read-body">
                     <div className="qna-read-body-contents">
                         {/*게시글 내용*/}
-                        {qnaRead.contents}
+                        {parsedContent}
                     </div>
                     {/*해시태그*/}
                     <ul className="qna-read-body-hashtag">
